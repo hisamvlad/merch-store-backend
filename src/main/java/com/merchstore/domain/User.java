@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.merchstore.domain.security.Authority;
 import com.merchstore.domain.security.UserRole;
 
+@Entity
 public class User implements UserDetails, Serializable {
 	
 	private static final long serialVersionUID = 342740L;

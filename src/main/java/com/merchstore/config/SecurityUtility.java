@@ -14,6 +14,7 @@ public class SecurityUtility {
 	private static final String SALT = KeyGenerators.string().generateKey(); // generates a random 8-byte salt that is then hex-encoded
 	//Salt adds an extra string in password so hacker find it difficult for breaking the password
 	
+	//password encryption
 	@Bean
 	public static BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(12, new SecureRandom(SALT.getBytes()));
