@@ -9,8 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.merchstore.config.SecurityUtility;
-import com.merchstore.domain.User;
 import com.merchstore.domain.security.Role;
+import com.merchstore.domain.security.User;
 import com.merchstore.domain.security.UserRole;
 import com.merchstore.service.UserService;
 

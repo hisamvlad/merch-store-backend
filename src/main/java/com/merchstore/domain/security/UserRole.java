@@ -11,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.merchstore.domain.User;
-
 @Entity
 @Table(name = "user_role")
 public class UserRole implements Serializable {

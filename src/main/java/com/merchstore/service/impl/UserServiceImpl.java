@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.merchstore.domain.User;
+import com.merchstore.domain.security.User;
 import com.merchstore.domain.security.UserRole;
 import com.merchstore.repository.RoleRepository;
 import com.merchstore.repository.UserRepository;
