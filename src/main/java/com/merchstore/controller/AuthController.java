@@ -24,6 +24,10 @@ import com.merchstore.config.jwt.JwtUtils;
 import com.merchstore.domain.ERole;
 import com.merchstore.domain.Role;
 import com.merchstore.domain.User;
+import com.merchstore.payload.request.LoginRequest;
+import com.merchstore.payload.request.SignupRequest;
+import com.merchstore.payload.response.JwtResponse;
+import com.merchstore.payload.response.MessageResponse;
 import com.merchstore.repository.RoleRepository;
 import com.merchstore.repository.UserRepository;
 import com.merchstore.service.UserDetailsImpl;
@@ -72,13 +76,13 @@ public class AuthController {
 	
 		@PostMapping("/signup")
 		public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
-			if(userRepository.existsByUsername(signUpRequest.getUsername())) {
+			if(userRepository.existsByUsername(signupRequest.getUsername())) {
 				return ResponseEntity
 						.badRequest()
 						.body(new MessageResponse("Error: Username is already taken!"));
 				
 			}
-			if(userRepository.existsByEmail(signUpRequest.getEmail())) {
+			if(userRepository.existsByEmail(signupRequest.getEmail())) {
 				return ResponseEntity
 						.badRequest()
 						.body(new MessageResponse("Error: Email is already in use!"));
@@ -86,11 +90,11 @@ public class AuthController {
 			
 			//Create new user's account
 			
-			User user = new User(signUpRequest.getUsername(),
-								signUpRequest.getEmail(),
-								encoder.encode(signUpRequest.getPassword()));
+			User user = new User(signupRequest.getUsername(),
+								signupRequest.getEmail(),
+								encoder.encode(signupRequest.getPassword()));
 			
-			Set<String> strRoles = signUpRequest.getRole();
+			Set<String> strRoles = signupRequest.getRole();
 			Set<Role> roles = new HashSet<>();
 			
 			if(strRoles == null) {

@@ -3,7 +3,6 @@ package com.merchstore.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -15,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.merchstore.config.jwt.AuthEntryPointJwt;
+import com.merchstore.config.jwt.AuthTokenFilter;
 import com.merchstore.service.UserDetailsServiceImpl;
 
 @Configuration
@@ -22,11 +23,8 @@ import com.merchstore.service.UserDetailsServiceImpl;
 @EnableGlobalMethodSecurity (prePostEnabled = true ) // provides AOP security on methods. It enables @PreAuthorize, @PostAuthorize, it also supports JSR-250.
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	@Autowired
-	private Environment env;
-	
-	@Autowired
-	private UserDetailsServiceImpl userSecurityService;
+//	@Autowired
+//	private Environment env;
 	
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
@@ -60,13 +58,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		return SecurityUtility.passwordEncoder();
 //	}
 	
-	private static final String[] PUBLIC_MATCHERS = {
-			"/css/**",
-			"/js/**",
-			"/image/**",
-			"/book/**",
-			"/user/**"
-	};
+//	private static final String[] PUBLIC_MATCHERS = {
+//			"/css/**",
+//			"/js/**",
+//			"/image/**",
+//			"/book/**",
+//			"/user/**"
+//	};
 	// TODO: for prod turn on csrf & cors
 //	It tells Spring Security how we configure CORS and CSRF, when we want to require all users to be authenticated or not, 
 //	which filter (AuthTokenFilter) and when we want it to work (filter before UsernamePasswordAuthenticationFilter), 

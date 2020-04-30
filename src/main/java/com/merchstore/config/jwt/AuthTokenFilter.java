@@ -29,6 +29,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 	
+	/*
+	 * – get JWT from the Authorization header (by removing Bearer prefix) – if the
+	 * request has JWT, validate it, parse username from it – from username, get
+	 * UserDetails to create an Authentication object – set the current UserDetails
+	 * in SecurityContext using setAuthentication(authentication) method.
+	 */
+	
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -37,7 +45,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 			// if the request has JWT, validate it, parse username from it
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
 				//from username, get UserDetails to create an Authentication object
-				String username = jwtUtils.getUserNameFromJwtTone(jwt);
+				String username = jwtUtils.getUserNameFromJwtToken(jwt);
 				
 				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
