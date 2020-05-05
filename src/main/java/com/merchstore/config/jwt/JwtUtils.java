@@ -1,6 +1,7 @@
 package com.merchstore.config.jwt;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -19,14 +20,17 @@ import io.jsonwebtoken.UnsupportedJwtException;
 
 
 @Component
-public class JwtUtils {
-  private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+public class JwtUtils implements Serializable {
+ 
+	private static final long serialVersionUID = 16757658L;
+
+private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
   
   @Value("${jwt.secret}")
-  private String jwtSecret;
+  private String secret;
   
   @Value("${jwt.expiration}")
-  private int jwtExpirationMs;
+  private int expiration;
   
   public String generateJwtToken(Authentication authentication) {
 	  
@@ -35,19 +39,19 @@ public class JwtUtils {
 	  return Jwts.builder()
 			  .setSubject((userPrincipal.getUsername()))
 			  .setIssuedAt(new Date())
-			  .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-			  .signWith(SignatureAlgorithm.HS512, jwtSecret)
+			  .setExpiration(new Date((new Date()).getTime() + expiration))
+			  .signWith(SignatureAlgorithm.HS512, secret)
 			  .compact();
 	  
   }
   
   public String getUserNameFromJwtToken(String token) {
-	  return  Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+	  return  Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
   }
   
   public boolean validateJwtToken(String authToken) {
 		try {
-			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+			Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
 			return true;
 		} catch (MalformedJwtException e) {
 			logger.error("Invalid JWT token: {}", e.getMessage());
